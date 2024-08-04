@@ -71,16 +71,19 @@ export class GridComponent {
     this.fetchData();
   }
 
-  deleteElement(id: any) {
-    console.log(id);
+  addContact() {
+    this.openContactDialog();
+  }
+
+  deleteContact(id: any) {
     this.service.deleteContact(id).subscribe();
     this.fetchData();
   }
-  editElement(contact: Contact) {
+  editContact(contact: Contact) {
     this.openContactDialog(contact);
   }
 
-  openContactDialog(contact: Contact): void {
+  openContactDialog(contact: Contact | null = null): void {
     const dialogRef = this.dialog.open(ContactDialogComponent, {
       width: '400px',
       data: { contact: contact },

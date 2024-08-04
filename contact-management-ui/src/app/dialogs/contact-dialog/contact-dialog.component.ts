@@ -18,14 +18,12 @@ export class ContactDialogComponent {
     public dialogRef: MatDialogRef<ContactDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log(data.contact);
-
     this.contactForm = this.fb.group({
-      id: [data.contact.id || '', Validators.required],
-      firstname: [data.contact.firstName || '', Validators.required],
-      lastname: [data.contact.lastName || '', Validators.required],
+      id: [data.contact?.id || 0, Validators.required],
+      firstname: [data.contact?.firstName || '', Validators.required],
+      lastname: [data.contact?.lastName || '', Validators.required],
       email: [
-        data.contact.email || '',
+        data.contact?.email || '',
         [Validators.required, Validators.email],
       ],
     });
@@ -33,19 +31,19 @@ export class ContactDialogComponent {
 
   onSubmit(): void {
     if (this.contactForm.valid) {
+      let contact: Contact = {
+        id: this.contactForm.get('id')?.value || 0,
+        firstName: this.contactForm.get('firstname')?.value || '',
+        lastName: this.contactForm.get('lastname')?.value || '',
+        email: this.contactForm.get('email')?.value || '',
+      };
       //Update Contact
       if (this.data.contact != null) {
-        this.service
-          .updateContact({
-            id: this.contactForm.get('id')?.value,
-            firstName: this.contactForm.get('firstname')?.value,
-            lastName: this.contactForm.get('lastname')?.value,
-            email: this.contactForm.get('email')?.value,
-          })
-          .subscribe();
+        this.service.updateContact(contact).subscribe();
       }
       //Add Contact
       else {
+        this.service.createContact(contact).subscribe();
       }
       this.dialogRef.close(this.contactForm.value);
     }
