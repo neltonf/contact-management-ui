@@ -12,7 +12,7 @@ export class ContactService {
   constructor(private http: HttpClient) {}
 
   // Get a specific contact by ID
-  getContact(searchParams: any): Observable<Contact[]> {
+  getContact(searchParams: any): Observable<any> {
     let params = new HttpParams();
     for (let key in searchParams) {
       if (searchParams.hasOwnProperty(key)) {

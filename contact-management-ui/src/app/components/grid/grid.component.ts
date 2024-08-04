@@ -52,8 +52,9 @@ export class GridComponent {
       .getContact(params)
       .pipe(
         tap((response) => {
+          this.totalItems = 100;
           this.totalItems = response.length;
-          this.dataSource.data = response;
+          this.dataSource.data = response.data;
         })
       )
       .subscribe();
