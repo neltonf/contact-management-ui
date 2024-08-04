@@ -12,9 +12,11 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { ContactDialogComponent } from './dialogs/contact-dialog/contact-dialog.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
-  declarations: [AppComponent, GridComponent],
+  declarations: [AppComponent, GridComponent, ContactDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -27,6 +29,7 @@ import { MatDialogModule } from '@angular/material/dialog';
     ReactiveFormsModule,
     MatButtonModule,
     MatDialogModule,
+    NgbModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

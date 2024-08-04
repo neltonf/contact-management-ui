@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
-import { SearchParams } from '../models/searchParams';
 import { Contact } from '../models/contact';
 
 @Injectable({
