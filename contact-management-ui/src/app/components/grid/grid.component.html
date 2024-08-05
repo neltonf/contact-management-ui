@@ -1,6 +1,6 @@
 <div class="row mb-3">
   <div class="col-8">
-    <input class="form-control" [ngModel]="this.searchQuery" (ngModelChange)="applyFilter($event)" placeholder="Search">
+    <input class="form-control" [formControl]="searchControl" placeholder="Type to search..." />
   </div>
   <div class="col-4 text-end">
     <button type="button" class="btn btn-dark w-100" (click)="addContact()">Add Contact</button>

@@ -1,12 +1,13 @@
 import { Component } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { PageEvent } from '@angular/material/paginator';
-import { tap } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { ContactService } from 'src/app/services/contact.service';
 import { SearchParams } from 'src/app/models/searchParams';
 import { Contact } from 'src/app/models/contact';
 import { ContactDialogComponent } from 'src/app/dialogs/contact-dialog/contact-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { FormControl } from '@angular/forms';
 
 export interface PeriodicElement {
   name: string;
@@ -21,6 +22,8 @@ export interface PeriodicElement {
   styleUrls: ['./grid.component.css'],
 })
 export class GridComponent {
+  searchControl = new FormControl('');
+
   displayedColumns: string[] = [
     'id',
     'firstName',
@@ -39,6 +42,17 @@ export class GridComponent {
 
   ngOnInit() {
     this.fetchData();
+
+    this.searchControl.valueChanges
+      .pipe(
+        debounceTime(500), // Adjust debounce time as needed
+        distinctUntilChanged()
+      )
+      .subscribe({
+        next: (value) => {
+          this.applyFilter(value);
+        },
+      });
   }
 
   fetchData() {
