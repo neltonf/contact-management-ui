@@ -1,0 +1,52 @@
+<h1 mat-dialog-title class="text-center mb-4">Contact Form</h1>
+<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="p-3">
+  <div mat-dialog-content class="mb-4">
+    <div class="mb-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>ID</mat-label>
+        <input readonly matInput formControlName="id" type="number">
+        <mat-error *ngIf="contactForm.controls['id'].hasError('required')">
+          ID is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>First Name</mat-label>
+        <input matInput formControlName="firstname">
+        <mat-error *ngIf="contactForm.controls['firstname'].hasError('required')">
+          First Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastname">
+        <mat-error *ngIf="contactForm.controls['lastname'].hasError('required')">
+          Last Name is required
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <div class="mb-3">
+      <mat-form-field appearance="fill" class="w-100">
+        <mat-label>Email</mat-label>
+        <input matInput formControlName="email">
+        <mat-error *ngIf="contactForm.controls['email'].hasError('required')">
+          Email is required
+        </mat-error>
+        <mat-error *ngIf="contactForm.controls['email'].hasError('email')">
+          Please enter a valid email
+        </mat-error>
+      </mat-form-field>
+    </div>
+  </div>
+  
+  <div mat-dialog-actions class="d-flex justify-content-end">
+    <button mat-button (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
+    <button mat-button type="submit" [disabled]="!contactForm.valid" class="btn btn-primary">Submit</button>
+  </div>
+</form>
