@@ -19,7 +19,7 @@ export class ContactDialogComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.contactForm = this.fb.group({
-      id: [data.contact?.id || 0, Validators.required],
+      id: [data.contact?.id || 0],
       firstname: [data.contact?.firstName || '', Validators.required],
       lastname: [data.contact?.lastName || '', Validators.required],
       email: [

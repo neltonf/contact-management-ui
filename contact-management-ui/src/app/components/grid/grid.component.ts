@@ -52,7 +52,6 @@ export class GridComponent {
       .getContact(params)
       .pipe(
         tap((response) => {
-          this.totalItems = 100;
           this.totalItems = response.length;
           this.dataSource.data = response.data;
         })
@@ -67,7 +66,7 @@ export class GridComponent {
   }
 
   applyFilter(value: any) {
-    this.searchQuery = value.trim().toLowerCase();
+    this.searchQuery = value.trim();
     this.pageIndex = 0;
     this.fetchData();
   }
