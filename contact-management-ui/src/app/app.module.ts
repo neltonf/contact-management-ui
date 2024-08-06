@@ -15,9 +15,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ContactDialogComponent } from './dialogs/contact-dialog/contact-dialog.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ConfirmationBoxDialogComponent } from './dialogs/confirmation-box-dialog/confirmation-box-dialog.component';
 
 @NgModule({
-  declarations: [AppComponent, GridComponent, ContactDialogComponent],
+  declarations: [AppComponent, GridComponent, ContactDialogComponent, ConfirmationBoxDialogComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
