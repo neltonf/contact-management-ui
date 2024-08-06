@@ -1,7 +1,7 @@
 <h1 mat-dialog-title class="text-center mb-4">Contact Form</h1>
-<form [formGroup]="contactForm" (ngSubmit)="onSubmit()" class="p-3">
+<form [formGroup]="contactForm" class="p-3">
   <div mat-dialog-content class="mb-4">
-    <div class="mb-3">
+    <div hidden class="mb-3">
       <mat-form-field appearance="fill" class="w-100">
         <mat-label>ID</mat-label>
         <input readonly matInput formControlName="id" type="number">
@@ -46,7 +46,7 @@
   </div>
   
   <div mat-dialog-actions class="d-flex justify-content-end">
-    <button mat-button (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
-    <button mat-button type="submit" [disabled]="!contactForm.valid" class="btn btn-primary">Submit</button>
+    <button (click)="onCancel()" class="btn btn-secondary me-2">Cancel</button>
+    <button (click)="onSubmit()" [disabled]="!contactForm.valid" class="btn btn-success me-2">Submit</button>
   </div>
 </form>

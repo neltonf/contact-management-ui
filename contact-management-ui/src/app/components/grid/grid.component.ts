@@ -8,6 +8,7 @@ import { Contact } from 'src/app/models/contact';
 import { ContactDialogComponent } from 'src/app/dialogs/contact-dialog/contact-dialog.component';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
+import { ConfirmationBoxDialogComponent } from 'src/app/dialogs/confirmation-box-dialog/confirmation-box-dialog.component';
 
 export interface PeriodicElement {
   name: string;
@@ -23,7 +24,6 @@ export interface PeriodicElement {
 })
 export class GridComponent {
   searchControl = new FormControl('');
-
   displayedColumns: string[] = [
     'id',
     'firstName',
@@ -31,7 +31,6 @@ export class GridComponent {
     'email',
     'actions',
   ];
-
   dataSource = new MatTableDataSource<any>();
   totalItems = 0;
   pageSize = 10;
@@ -44,10 +43,7 @@ export class GridComponent {
     this.fetchData();
 
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(500), // Adjust debounce time as needed
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe({
         next: (value) => {
           this.applyFilter(value);
@@ -90,11 +86,24 @@ export class GridComponent {
   }
 
   deleteContact(id: any) {
-    this.service.deleteContact(id).subscribe();
-    this.fetchData();
+    this.openDeleteConfirmationDialog(id);
   }
+
   editContact(contact: Contact) {
     this.openContactDialog(contact);
+  }
+
+  openDeleteConfirmationDialog(id: number): void {
+    const dialogRef = this.dialog.open(ConfirmationBoxDialogComponent, {
+      width: '400px',
+      data: { id: id },
+    });
+
+    dialogRef.afterClosed().subscribe((result: boolean) => {
+      if (result) {
+        this.fetchData();
+      }
+    });
   }
 
   openContactDialog(contact: Contact | null = null): void {
@@ -103,7 +112,7 @@ export class GridComponent {
       data: { contact: contact },
     });
 
-    dialogRef.afterClosed().subscribe((result: Contact | undefined) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.fetchData();
       }
