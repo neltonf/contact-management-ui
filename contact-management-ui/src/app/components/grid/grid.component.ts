@@ -43,10 +43,7 @@ export class GridComponent {
     this.fetchData();
 
     this.searchControl.valueChanges
-      .pipe(
-        debounceTime(500), 
-        distinctUntilChanged()
-      )
+      .pipe(debounceTime(500), distinctUntilChanged())
       .subscribe({
         next: (value) => {
           this.applyFilter(value);
@@ -115,7 +112,7 @@ export class GridComponent {
       data: { contact: contact },
     });
 
-    dialogRef.afterClosed().subscribe((result: Contact | undefined) => {
+    dialogRef.afterClosed().subscribe((result: boolean) => {
       if (result) {
         this.fetchData();
       }

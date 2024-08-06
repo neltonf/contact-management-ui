@@ -45,11 +45,11 @@ export class ContactDialogComponent {
       else {
         this.service.createContact(contact).subscribe();
       }
-      this.dialogRef.close(this.contactForm.value);
+      this.dialogRef.close(true);
     }
   }
 
   onCancel(): void {
-    this.dialogRef.close();
+    this.dialogRef.close(false);
   }
 }
